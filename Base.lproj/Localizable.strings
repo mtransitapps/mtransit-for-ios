@@ -1,0 +1,22 @@
+/* 
+  Localizable.strings
+  MonTransit
+
+  Created by Thibault on 16-05-25.
+  Copyright © 2016 Thibault. All rights reserved.
+*/
+
+
+/* Class = "General */
+"OkKey" = "Ok";
+"NoKey" = "No";
+"DoneKey" = "Done";
+"CancelKey" = "Cancel";
+"UpdateKey" = "Update";
+
+/* Class = "CompeleteHourViewController */
+"DatePicker" = "Choose your date";
+
+/* Class = "StopViewController */
+"RemovedKey" = "Removed";
+"AddedKey" = "added";
