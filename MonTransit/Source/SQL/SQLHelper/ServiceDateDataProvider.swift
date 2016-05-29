@@ -51,7 +51,7 @@ class ServiceDateDataProvider {
             return false
         }
     }
-    func retrieveCurrentService(iId:Int) -> String
+    func retrieveCurrentService(iId:Int) -> [String]
     {
         // get the user's calendar
         let userCalendar = NSCalendar.currentCalendar()
@@ -79,30 +79,28 @@ class ServiceDateDataProvider {
         }
         
         let wServices = try! SQLProvider.sqlProvider.mainDatabase(iId).prepare(service_dates.filter(date == wTimeInt))
-        var wCurrentService = ""
+        var wCurrentService = [String]()
         
         for wService in wServices
         {
-            wCurrentService = wService.get(service_id)
-            break
+            wCurrentService.append(wService.get(service_id))
         }
         
         return wCurrentService
     }
     
-    func retrieveCurrentServiceByDate(iDate:Int, iId:Int) -> String
+    func retrieveCurrentServiceByDate(iDate:Int, iId:Int) -> [String]
     {
         
         let wServices = try! SQLProvider.sqlProvider.mainDatabase(iId).prepare(service_dates.filter(date == iDate))
-        var wCurrentService = ""
+        var wCurrentServices = [String]()
         
         for wService in wServices
         {
-            wCurrentService = wService.get(service_id)
-            break
+            wCurrentServices.append(wService.get(service_id))
         }
         
-        return wCurrentService
+        return wCurrentServices
     }
     
     func getDatesLimit(iId:Int) ->(min:GTFSTimeObject, max:GTFSTimeObject){

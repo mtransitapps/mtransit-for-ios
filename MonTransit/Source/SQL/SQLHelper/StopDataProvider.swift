@@ -32,60 +32,65 @@ class StopDataProviderHelper {
     {
     }
     
-    func retrieveGtfsTime(iServiceId:String, iStationCodeId:Int, iTripId:Int, iId:Int, iDate:Int = NSDate().getDateToInt()) -> [GTFSTimeObject]
+    func retrieveGtfsTime(iServiceId:[String], iStationCodeId:Int, iTripId:Int, iId:Int, iDate:Int = NSDate().getDateToInt()) -> [GTFSTimeObject]
     {
         var wListOfGtfsTime = [GTFSTimeObject]()
         
         //check if is already extracted
-        let wSuccess = gtfsTimeExistInDb(iServiceId, iStationCodeId: iStationCodeId, iTripId: iTripId, iId: iId)
         
-        if wSuccess
-        {
-            let wGtfslists = try! SQLProvider.sqlProvider.gtfsDatabase(iId).prepare(gtfs.select(gtfs_time).filter(service_id == iServiceId && stop_id == iStationCodeId && trip_id == iTripId))
+        for wServiceId in iServiceId {
             
-            for wGtfs in wGtfslists
+            let wSuccess = gtfsTimeExistInDb(wServiceId, iStationCodeId: iStationCodeId, iTripId: iTripId, iId: iId)
+            
+            if wSuccess
             {
-                wListOfGtfsTime.append(GTFSTimeObject(iGtfsTime: wGtfs[gtfs_time],iGtfdDate: iDate ))
-            }
-        }
-        else
-        {
-            print("in File")
-            let wStopRawType = AgencyManager.getAgencyById(iId).getMainFilePath()
-            let wFilePath = AgencyManager.getAgencyById(iId).getStopScheduleRawfileFormat() + "\(iStationCodeId)"
-
-            let wFileText = AgencyManager.getAgencyById(iId).getZipData().getDataFileFromZip(wFilePath, iDocumentName: wStopRawType)
-            if wFileText != ""
-            {
-                let wServices = wFileText.stringByReplacingOccurrencesOfString("'", withString: "").componentsSeparatedByString("\n")
+                let wGtfslists = try! SQLProvider.sqlProvider.gtfsDatabase(iId).prepare(gtfs.select(gtfs_time).filter(service_id == wServiceId && stop_id == iStationCodeId && trip_id == iTripId))
                 
-                var wGtfsTimes = [Int]()
-
-                for wService in wServices
+                for wGtfs in wGtfslists
                 {
-                    let wGtfs = wService.componentsSeparatedByString(GTFS_SCHEDULE_STOP_FILE_COL_SPLIT_ON)
-                    if wGtfs[GTFS_SCHEDULE_STOP_FILE_COL_SERVICE_IDX] == iServiceId && wGtfs[GTFS_SCHEDULE_STOP_FILE_COL_TRIP_IDX] == String(iTripId)
-                    {
-                        var wCounterGtfs = 0
-                        var wPreviousTime = 0
-                        while wGtfs.count > (GTFS_SCHEDULE_STOP_FILE_COL_DEPARTURE_IDX + wCounterGtfs)
-                        {
-                            wPreviousTime += Int(wGtfs[GTFS_SCHEDULE_STOP_FILE_COL_DEPARTURE_IDX + wCounterGtfs])!
-                            wListOfGtfsTime.append(GTFSTimeObject(iGtfsTime: wPreviousTime,iGtfdDate: iDate ))
-                            wCounterGtfs += GTFS_SCHEDULE_STOP_FILE_COL_TIME_COUNT
-                            
-                            wGtfsTimes.append(wPreviousTime)
-                        }
-                        insertGtfsTime(iServiceId, iStationCodeId: iStationCodeId, iTripId: iTripId, iGtfs: wGtfsTimes, iId: iId)
-                        break
-                    }
+                    wListOfGtfsTime.append(GTFSTimeObject(iGtfsTime: wGtfs[gtfs_time],iGtfdDate: iDate ))
                 }
             }
             else
             {
-                print("error reading file")
+                print("in File")
+                let wStopRawType = AgencyManager.getAgencyById(iId).getMainFilePath()
+                let wFilePath = AgencyManager.getAgencyById(iId).getStopScheduleRawfileFormat() + "\(iStationCodeId)"
+
+                let wFileText = AgencyManager.getAgencyById(iId).getZipData().getDataFileFromZip(wFilePath, iDocumentName: wStopRawType)
+                if wFileText != ""
+                {
+                    let wServices = wFileText.stringByReplacingOccurrencesOfString("'", withString: "").componentsSeparatedByString("\n")
+                    
+                    var wGtfsTimes = [Int]()
+
+                    for wService in wServices
+                    {
+                        let wGtfs = wService.componentsSeparatedByString(GTFS_SCHEDULE_STOP_FILE_COL_SPLIT_ON)
+                        if wGtfs[GTFS_SCHEDULE_STOP_FILE_COL_SERVICE_IDX] == wServiceId && wGtfs[GTFS_SCHEDULE_STOP_FILE_COL_TRIP_IDX] == String(iTripId)
+                        {
+                            var wCounterGtfs = 0
+                            var wPreviousTime = 0
+                            while wGtfs.count > (GTFS_SCHEDULE_STOP_FILE_COL_DEPARTURE_IDX + wCounterGtfs)
+                            {
+                                wPreviousTime += Int(wGtfs[GTFS_SCHEDULE_STOP_FILE_COL_DEPARTURE_IDX + wCounterGtfs])!
+                                wListOfGtfsTime.append(GTFSTimeObject(iGtfsTime: wPreviousTime,iGtfdDate: iDate ))
+                                wCounterGtfs += GTFS_SCHEDULE_STOP_FILE_COL_TIME_COUNT
+                                
+                                wGtfsTimes.append(wPreviousTime)
+                            }
+                            insertGtfsTime(wServiceId, iStationCodeId: iStationCodeId, iTripId: iTripId, iGtfs: wGtfsTimes, iId: iId)
+                            break
+                        }
+                    }
+                }
+                else
+                {
+                    print("error reading file")
+                }
             }
         }
+        wListOfGtfsTime.sortInPlace({$0.getNSDate().timeIntervalSince1970 < $1.getNSDate().timeIntervalSince1970})
         return wListOfGtfsTime
     }
     
