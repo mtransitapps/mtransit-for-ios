@@ -100,3 +100,6 @@
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "y4R-og-Rfd"; */
 "y4R-og-Rfd.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Gzo-jN-kI5"; */
+"Gzo-jN-kI5.text"= "Il n'y a pas d'horaires pour la date choisie";

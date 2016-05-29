@@ -144,18 +144,18 @@ class NearestStationViewCell: UITableViewCell {
         var wTimeString = ""
         
         if wMin < 0{
-            wTimeString = "Tomorrow"
+            wTimeString = NSLocalizedString("TomorrowKey", comment: "Tomorrow")
         }
         else if wMin == 0 {
-            wTimeString = "Now"
+            wTimeString = NSLocalizedString("NowKey", comment: "now")
         }
         else if wMin > 60{
             let wHour = ceil(Double(wMin / 60))
-            if wHour > 1 {wTimeString = (String(Int(wHour)) + " hours")}
-            else {wTimeString = (String(Int(wHour)) + " hour")}
+            if wHour > 1 {wTimeString = (String(Int(wHour)) + " " + NSLocalizedString("HoursKey", comment: "Hours"))}
+            else {wTimeString = (String(Int(wHour)) + " " + NSLocalizedString("HourKey", comment: "Hour"))}
         }
         else {
-            wTimeString = String(wMin) + " min"
+            wTimeString = String(wMin) + " " + NSLocalizedString("MinutesKey", comment: "min")
         }
         return wTimeString
     }

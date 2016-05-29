@@ -1508,6 +1508,12 @@
                                             <action selector="displayAlert" destination="2Nh-7Q-Pv3" eventType="touchUpInside" id="grO-X2-uQ7"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="noHoursLabel" text="There is no schedule for the chosen date" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gzo-jN-kI5" userLabel="NoData">
+                                        <rect key="frame" x="10" y="292" width="580" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="BwP-9h-yVH" secondAttribute="bottom" constant="-44" id="6h7-Wu-5I8"/>
@@ -1520,11 +1526,14 @@
                                     <constraint firstItem="XcM-BG-MIN" firstAttribute="leading" secondItem="zDc-zX-DnB" secondAttribute="leading" id="Jon-RE-GRq"/>
                                     <constraint firstItem="YlQ-Gr-ajI" firstAttribute="bottom" secondItem="fbt-hf-jIQ" secondAttribute="bottom" constant="-67" id="LiU-13-YEy"/>
                                     <constraint firstAttribute="trailing" secondItem="BwP-9h-yVH" secondAttribute="trailing" id="MVv-5p-rLB"/>
+                                    <constraint firstItem="Gzo-jN-kI5" firstAttribute="centerY" secondItem="Wzk-tl-hlR" secondAttribute="centerY" id="OHI-g8-1BC"/>
                                     <constraint firstAttribute="trailing" secondItem="YlQ-Gr-ajI" secondAttribute="trailing" id="Ul6-aK-eCE"/>
                                     <constraint firstItem="Wcq-df-kAY" firstAttribute="leading" secondItem="Wzk-tl-hlR" secondAttribute="leadingMargin" id="V8l-R9-p9y"/>
+                                    <constraint firstItem="Gzo-jN-kI5" firstAttribute="leading" secondItem="Wzk-tl-hlR" secondAttribute="leading" constant="10" id="YhL-9Q-7pv"/>
                                     <constraint firstItem="Zre-Hh-Eri" firstAttribute="width" secondItem="Wzk-tl-hlR" secondAttribute="width" id="Yky-xb-rUa"/>
                                     <constraint firstAttribute="trailing" secondItem="YlQ-Gr-ajI" secondAttribute="trailing" id="c8W-7t-NgO"/>
                                     <constraint firstItem="Zre-Hh-Eri" firstAttribute="height" secondItem="BwP-9h-yVH" secondAttribute="height" id="fFW-rX-iuU"/>
+                                    <constraint firstAttribute="trailing" secondItem="Gzo-jN-kI5" secondAttribute="trailing" constant="10" id="iph-h0-uVF"/>
                                     <constraint firstItem="Zre-Hh-Eri" firstAttribute="top" secondItem="BwP-9h-yVH" secondAttribute="top" id="iqT-Ns-KMA"/>
                                     <constraint firstItem="RQH-eK-X88" firstAttribute="top" secondItem="Wcq-df-kAY" secondAttribute="bottom" constant="2" id="mKl-m1-gPe"/>
                                     <constraint firstItem="Zre-Hh-Eri" firstAttribute="top" secondItem="RQH-eK-X88" secondAttribute="bottom" constant="2" id="qOJ-Xw-00g"/>
@@ -1589,6 +1598,7 @@
                         <outlet property="header" destination="lN5-mf-9tn" id="LAm-zG-HV3"/>
                         <outlet property="headerLabel" destination="XN5-cJ-hEb" id="lAK-nM-FKJ"/>
                         <outlet property="heightConstraint" destination="PIW-00-hbJ" id="4ZK-Hu-c4e"/>
+                        <outlet property="noData" destination="Gzo-jN-kI5" id="xMz-k1-bP7"/>
                         <outlet property="scrollView" destination="Wzk-tl-hlR" id="8T4-1N-YZp"/>
                         <outlet property="stationCodeLabel" destination="Wcq-df-kAY" id="FOr-cR-d3r"/>
                         <outlet property="stationNameLabel" destination="XcM-BG-MIN" id="snq-it-h1R"/>

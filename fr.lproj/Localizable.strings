@@ -19,3 +19,10 @@
 /* Class = "StopViewController */
 "RemovedKey" = "Supprimer";
 "AddedKey" = "Ajouter";
+
+/* Nour / min */
+"NowKey" = "maintenant";
+"TomorrowKey" = "demain";
+"HoursKey" = "heures";
+"HourKey" = "heure";
+"MinutesKey" = "min";

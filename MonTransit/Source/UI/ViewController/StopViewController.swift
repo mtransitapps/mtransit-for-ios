@@ -31,6 +31,7 @@ class StopViewController: UIViewController, UIScrollViewDelegate, UITableViewDat
     @IBOutlet weak var alertTextBlock: UITextView!
     @IBOutlet weak var alertSize: NSLayoutConstraint!
     @IBOutlet weak var alertButton: UIButton!
+    @IBOutlet weak var noData: UILabel!
     
     var blurredHeaderImageView:UIImageView?
     
@@ -113,6 +114,15 @@ class StopViewController: UIViewController, UIScrollViewDelegate, UITableViewDat
                 favoriteButton.image = UIImage(named: "favorite_add")
             }
             
+        }
+        
+        if mStopsList.count > 0{
+            noData.hidden = true
+            timeListView.hidden = false
+        }
+        else {
+            noData.hidden = false
+            timeListView.hidden = true
         }
         
         mMapLoaded = false

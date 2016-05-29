@@ -22,7 +22,7 @@ class StopImageView: UIView {
             self.insertSubview(headerLabel, atIndex: 1)
         }
         
-        let directionLabel:UILabel = UILabel(frame: CGRect(x: 0, y: self.frame.origin.y - 32, width: self.frame.size.width, height: 20))
+        let directionLabel:UILabel = UILabel(frame: CGRect(x: 2, y: self.frame.origin.y - 33, width: self.frame.size.width - 2, height: 20))
         directionLabel.contentMode = UIViewContentMode.ScaleAspectFill
         directionLabel.textColor = UIColor.whiteColor()
         directionLabel.backgroundColor = UIColor.blackColor()
