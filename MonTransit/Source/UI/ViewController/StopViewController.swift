@@ -122,21 +122,24 @@ class StopViewController: UIViewController, UIScrollViewDelegate, UITableViewDat
         
         if !mMapLoaded {
             
-            headerMapView = MKMapView(frame: header.bounds)
-            headerMapView?.contentMode = UIViewContentMode.ScaleAspectFill
-            headerMapView.showsUserLocation = true
-            header.insertSubview(headerMapView, belowSubview: headerLabel)
-            
-            centerMapOnLocation(CLLocation(latitude: mSelectedStation.getStationLatitude(), longitude: mSelectedStation.getStationLongitude()))
-            
-            blurView = UIView(frame: headerMapView.bounds)
-            visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
-            visualEffectView.frame = blurView.bounds
-            blurView.insertSubview(visualEffectView, atIndex: 1)
-            blurView.alpha = 0.0
-            
-            header.insertSubview(blurView, belowSubview: headerLabel)
-            header.clipsToBounds = true
+            dispatch_async(dispatch_get_main_queue())
+            {
+                self.headerMapView = MKMapView(frame: self.header.bounds)
+                self.headerMapView?.contentMode = UIViewContentMode.ScaleAspectFill
+                self.headerMapView.showsUserLocation = true
+                self.header.insertSubview(self.headerMapView, belowSubview: self.headerLabel)
+                
+                self.centerMapOnLocation(CLLocation(latitude: self.mSelectedStation.getStationLatitude(), longitude: self.mSelectedStation.getStationLongitude()))
+                
+                self.blurView = UIView(frame: self.headerMapView.bounds)
+                self.visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
+                self.visualEffectView.frame = self.headerMapView.bounds
+                self.blurView.insertSubview(self.visualEffectView, atIndex: 1)
+                self.blurView.alpha = 0.0
+                
+                self.header.insertSubview(self.blurView, belowSubview: self.headerLabel)
+                self.header.clipsToBounds = true
+            }
         }
     }
     
