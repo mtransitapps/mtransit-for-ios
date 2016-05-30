@@ -1,5 +1,6 @@
 <agencies>
     <agency name="STM Bus" displayName="Bus">
+        <adMob>false</adMob>
         <zipFile>StmAgency</zipFile>
         <folder>
             <mainDatabaseFolder>mainDatabase</mainDatabaseFolder>
@@ -36,6 +37,7 @@
         <type>0</type>
     </agency>
     <agency name="STM Subway" displayName="Metro">
+        <adMob>true</adMob>
         <zipFile>StmAgency</zipFile>
         <folder>
             <mainDatabaseFolder>mainDatabase</mainDatabaseFolder>
@@ -72,6 +74,7 @@
         <type>1</type>
     </agency>
     <agency name="STM Train" displayName="Train">
+        <adMob>true</adMob>
         <zipFile>AmtAgency</zipFile>
         <folder>
             <mainDatabaseFolder>mainDatabase</mainDatabaseFolder>

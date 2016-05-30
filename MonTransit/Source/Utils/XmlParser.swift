@@ -41,6 +41,8 @@ class ParserDelegate:NSObject, NSXMLParserDelegate{
         if recordingElementValue{
             
             switch mCurrentValue {
+                case "adMob":
+                    self.mAgency.mDisplayIAds = (string == "false" ? false:true)
                 case "zipFile":
                     self.mAgency.setZipDataFile(string)
                 case "mainDatabaseFolder":

@@ -18,6 +18,15 @@ class LoadingViewController: UIViewController, DatabaseyDelegate {
     
     override func viewDidAppear(animated: Bool) {
         
+        //Create temp folder
+        createTemporaryFolder()
+        
+        //copy zip files
+        for wAgency in AgencyManager.getAgencies() {
+            
+            File.copy(File.getBundleFilePath(wAgency.getZipDataFile(), iOfType: "zip")!, destinationPath: File.getDocumentTempFolderPath() + "\(wAgency.getZipDataFile()).zip")
+        }
+        
         //Load SQLLite Dabase
         SQLProvider.sqlProvider.delegate = self
         SQLProvider.sqlProvider.openDatabase()
@@ -27,6 +36,17 @@ class LoadingViewController: UIViewController, DatabaseyDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func createTemporaryFolder() {
+        File.createDirectory("temporary")
+        do {
+            try NSFileManager.defaultManager().addSkipBackupAttributeToItemAtURL(File.getDocumentTempFolderPath())
+            
+        } catch {
+            // Handle error here
+            print("Error: \(error)")
+        }
     }
     
     func databaseCreated() {

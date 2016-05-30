@@ -15,8 +15,13 @@ class ZipLoader {
     
     init(iZipFilePath:String) {
 
-        let wUrl = NSURL(fileURLWithPath: File.getBundleFilePath(iZipFilePath, iOfType: "zip")!)
+        let wUrl = NSURL(fileURLWithPath: File.getDocumentTempFolderPath() + "\(iZipFilePath).zip")
         mArchive = try! ZZArchive(URL: wUrl)
+    }
+    
+    deinit {
+    
+        mArchive = nil
     }
     
     func getDataFileFromZip(iFileName:String, iDocumentName:String, iSaveExtractedFile:Bool = false) -> String{
@@ -30,7 +35,7 @@ class ZipLoader {
                 let wDataString = NSString(data: wData, encoding:NSUTF8StringEncoding) as! String
                 if(iSaveExtractedFile){
                     File.createDirectory("\(iDocumentName)")
-                    File.save(File.getDocumentFilePath() + "/\(iDocumentName)/\(iFileName)", content: wDataString)
+                    File.save(File.getDocumentFilePath() + "\(iDocumentName)/\(iFileName)", content: wDataString)
                 }
                 
                 return NSString(data: wData, encoding:NSUTF8StringEncoding) as! String

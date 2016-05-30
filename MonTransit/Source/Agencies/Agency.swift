@@ -76,7 +76,6 @@ class Agency:NSObject, AgencyProtocol {
     func setZipDataFile(iFile:String) {
         
         mZipDataFile = iFile
-        setZipData()
     }
     func getZipDataFile () -> String {
         

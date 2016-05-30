@@ -24,9 +24,9 @@ final class SQLProvider {
     }
     
     var delegate: DatabaseyDelegate?
-    private var mMainDatabase = [Connection]()
-    private var mFavoritesDatabase = [Connection]()
-    private var mGtfsDatabase = [Connection]()
+    private var mMainDatabase = [Connection!]()
+    private var mFavoritesDatabase = [Connection!]()
+    private var mGtfsDatabase = [Connection!]()
     
     static let sqlProvider = SQLProvider()
     
@@ -36,6 +36,13 @@ final class SQLProvider {
     
     func openDatabase()
     {
+        
+        // set zip path
+        for wAgency in AgencyManager.getAgencies(){
+            
+            wAgency.setZipData()
+        }
+        
         if !File.documentFileExist(NSBundle.mainBundle().releaseVersionNumber!)
         {
             print("start: " + String(NSDate().getGtfsFormatTime()))
@@ -43,14 +50,26 @@ final class SQLProvider {
             
             for wAgency in AgencyManager.getAgencies(){
                 
-                File.deleteContentsOfFolder(File.getDocumentFilePath() + wAgency.mMainDatabaseFolder)
-                File.deleteContentsOfFolder(File.getDocumentFilePath() + wAgency.mGtfsDatabaseFolder)
+                File.delete(File.getDocumentFilePath() + wAgency.getMainDatabasePath())
+                File.delete(File.getDocumentFilePath() + wAgency.getGtfsDatabasePath())
                 
-                wSuccess = wSuccess && self.createMainDatabase(wAgency)
+                File.createDirectory(wAgency.mMainDatabaseFolder)
+                File.createDirectory(wAgency.mFavoritesDatabaseFolder)
+                File.createDirectory(wAgency.mGtfsDatabaseFolder)
+
+                wSuccess = createMainDatabase(wAgency)
+                wSuccess = wSuccess && createGtfssDatabase(wAgency)
+                
+                if !File.documentFileExist(wAgency.getFavoritesDatabasePath()) {
+                    wSuccess = wSuccess && createFavoritesDatabase(wAgency)
+                }
+                else {
+                    openFavoriteDatabase(wAgency)
+                }
             }
             
             if wSuccess{
-                File.save(File.getDocumentFilePath() + "/" + NSBundle.mainBundle().releaseVersionNumber!, content: "")
+                File.save(File.getDocumentFilePath() + NSBundle.mainBundle().releaseVersionNumber!, content: "")
                 self.delegate?.databaseCreated?()
             }
             
@@ -60,13 +79,9 @@ final class SQLProvider {
         {
             for wAgency in AgencyManager.getAgencies(){
                 openMainDatabase(wAgency)
+                openGtfsDatabase(wAgency)
+                openFavoriteDatabase(wAgency)
             }
-        }
-        
-        // Favorites and Gtfs
-        for wAgency in AgencyManager.getAgencies(){
-            openFavoriteDatabase(wAgency)
-            openGtfsDatabase(wAgency)
         }
     }
     
@@ -75,86 +90,40 @@ final class SQLProvider {
         let wPath = File.getDocumentFilePath()
         let wDbExist = File.documentFileExist(iAgency.getMainDatabasePath())
         
-        if  wDbExist == true
+        if  wDbExist
         {
             mMainDatabase.append(try! Connection("\(wPath)/" + iAgency.getMainDatabasePath()))
         }
     }
     
-    private func createMainDatabase(iAgency:AgencyProtocol) -> Bool
-    {
-        let wPath = File.getDocumentFilePath()
-        let wDbExist = File.documentFileExist(iAgency.getMainDatabasePath())
-        
-        if  wDbExist == true
-        {
-            File.delete("\(wPath)/" + iAgency.getMainDatabasePath())
-        }
-        File.createDirectory(iAgency.mMainDatabaseFolder)
-        mMainDatabase.append(try! Connection("\(wPath)/" + iAgency.getMainDatabasePath()))
-        
-        createDatabase(iAgency.getAgencyId())
-        return populateDatabase(iAgency, iSqlConnection: mainDatabase(iAgency.getAgencyId()))
-    }
-    
     private func openFavoriteDatabase(iAgency:AgencyProtocol)
     {
         let wPath = File.getDocumentFilePath()
-        let wFavExist = File.documentFileExist(iAgency.getFavoritesDatabasePath())
+        let wDbExist = File.documentFileExist(iAgency.getFavoritesDatabasePath())
         
-        File.createDirectory(iAgency.mFavoritesDatabaseFolder)
-        mFavoritesDatabase.append(try! Connection("\(wPath)/" + iAgency.getFavoritesDatabasePath()))
-        
-        if  wFavExist == false
+        if  wDbExist
         {
-            createFavoritesDatabase(iAgency.getAgencyId())
+            mFavoritesDatabase.append(try! Connection("\(wPath)/" + iAgency.getFavoritesDatabasePath()))
         }
     }
     
     private func openGtfsDatabase(iAgency:AgencyProtocol)
     {
         let wPath = File.getDocumentFilePath()
-        let wFavExist = File.documentFileExist(iAgency.getGtfsDatabasePath())
+        let wDbExist = File.documentFileExist(iAgency.getGtfsDatabasePath())
         
-        File.createDirectory(iAgency.mGtfsDatabaseFolder)
-        mGtfsDatabase.append(try! Connection("\(wPath)/" + iAgency.getGtfsDatabasePath()))
-        
-        if  wFavExist == false
+        if  wDbExist
         {
-            createGtfssDatabase(iAgency.getAgencyId())
+            mGtfsDatabase.append(try! Connection("\(wPath)/" + iAgency.getGtfsDatabasePath()))
         }
     }
     
-    private func createGtfssDatabase(iId:Int)
+    private func createMainDatabase(iAgency:AgencyProtocol) -> Bool
     {
-        // create table
-        try! gtfsDatabase(iId).run(Table("gtfs").create
-            { t in
-                t.column(Expression<Int64>("_id"), primaryKey: .Autoincrement)
-                t.column(Expression<String>("service_id"))
-                t.column(Expression<Int64>("stop_id"))
-                t.column(Expression<Int64>("trip_id"))
-                t.column(Expression<Int64>("gtfs_time"))
-            })
-    }
-    
-    private func createFavoritesDatabase(iId:Int)
-    {
-        // create table
-        try! favoriteDatabase(iId).run(Table("favorite").create
-        { t in
-            t.column(Expression<Int64>("_id"), primaryKey: .Autoincrement)
-            t.column(Expression<Int64>("route_id"))
-            t.column(Expression<Int64>("trip_id"))
-            t.column(Expression<Int64>("stop_id"))
-            t.column(Expression<Int64>("folder_id"))
-        })
-    }
-    
-    private func createDatabase(iId:Int)
-    {
+       let wConnection = try! Connection(File.getDocumentFilePath() + iAgency.getMainDatabasePath())
+        
         // create table route
-        try! mainDatabase(iId).run(Table("route").create
+        try! wConnection.run(Table("route").create
         { t in
             t.column(Expression<Int64>("_id"), primaryKey: true)
             t.column(Expression<String>("short_name"))
@@ -163,7 +132,7 @@ final class SQLProvider {
         })
         
         // create table stop
-        try! mainDatabase(iId).run(Table("stop").create
+        try! wConnection.run(Table("stop").create
         { t in
             t.column(Expression<Int64>("_id"), primaryKey: true)
             t.column(Expression<String>("code"))
@@ -173,7 +142,7 @@ final class SQLProvider {
         })
         
         // create table trip
-        try! mainDatabase(iId).run(Table("trip").create
+        try! wConnection.run(Table("trip").create
         { t in
             t.column(Expression<Int64>("_id"), primaryKey: true)
             t.column(Expression<Int64>("headsign_type"))
@@ -182,7 +151,7 @@ final class SQLProvider {
         })
         
         // create table trip stop
-        try! mainDatabase(iId).run(Table("trip_stops").create
+        try! wConnection.run(Table("trip_stops").create
         { t in
             t.column(Expression<Int64>("_id"), primaryKey: .Autoincrement)
             t.column(Expression<Int64>("trip_id"))
@@ -192,11 +161,52 @@ final class SQLProvider {
         })
         
         // create table trip stop
-        try! mainDatabase(iId).run(Table("service_dates").create
+        try! wConnection.run(Table("service_dates").create
         { t in
             t.column(Expression<String>("service_id"))
             t.column(Expression<Int64>("date"))
         })
+        
+        mMainDatabase.append(wConnection)
+        return populateDatabase(iAgency, iSqlConnection: wConnection)
+    }
+    
+    private func createGtfssDatabase(iAgency:AgencyProtocol) -> Bool
+    {
+        let wConnection = try! Connection(File.getDocumentFilePath() + iAgency.getGtfsDatabasePath())
+        
+        // create table
+        try! wConnection.run(Table("gtfs").create
+            { t in
+                t.column(Expression<Int64>("_id"), primaryKey: .Autoincrement)
+                t.column(Expression<String>("service_id"))
+                t.column(Expression<Int64>("stop_id"))
+                t.column(Expression<Int64>("trip_id"))
+                t.column(Expression<Int64>("gtfs_time"))
+            })
+        
+        mGtfsDatabase.append(wConnection)
+        
+        return true
+    }
+    
+    private func createFavoritesDatabase(iAgency:AgencyProtocol) -> Bool
+    {
+        let wConnection = try! Connection(File.getDocumentFilePath() + iAgency.getFavoritesDatabasePath())
+        
+        // create table
+        try! wConnection.run(Table("favorite").create
+            { t in
+                t.column(Expression<Int64>("_id"), primaryKey: .Autoincrement)
+                t.column(Expression<Int64>("route_id"))
+                t.column(Expression<Int64>("trip_id"))
+                t.column(Expression<Int64>("stop_id"))
+                t.column(Expression<Int64>("folder_id"))
+            })
+        
+        mFavoritesDatabase.append(wConnection)
+        
+        return true
     }
     
     private func populateDatabase(iAgency:AgencyProtocol, iSqlConnection:Connection) -> Bool
@@ -234,5 +244,20 @@ final class SQLProvider {
     func gtfsDatabase(iId:Int) -> Connection!
     {
         return mGtfsDatabase[iId]
+    }
+    
+    func closeMainDatabse(iId:Int) {
+        
+        mMainDatabase[iId] = nil
+    }
+    
+    func closefavoriteDatabse(iId:Int) {
+        
+        mFavoritesDatabase[iId] = nil
+    }
+    
+    func closeGtfsDatabse(iId:Int) {
+        
+        mGtfsDatabase[iId] = nil
     }
 }

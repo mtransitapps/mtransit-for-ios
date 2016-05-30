@@ -31,6 +31,22 @@ class File {
         }
     }
     
+    class func copy(sourcePath: String, destinationPath: String) -> Bool{
+        
+        if NSFileManager().fileExistsAtPath(sourcePath) {
+            do {
+                try NSFileManager().copyItemAtPath(sourcePath, toPath: destinationPath)
+                return true
+                
+            } catch let error as NSError {
+                
+                print(error.code)
+                return false
+            }
+        }
+        return false
+    }
+    
     class func createDirectory(path:String) {
     
         if !File.documentFileExist(path){
@@ -94,8 +110,15 @@ class File {
     
     class func getDocumentFilePath() -> String {
         
-        return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first!
+        return "\(NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first!)/"
     }
+    
+    class func getDocumentTempFolderPath() -> String {
+        
+        let wPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first! + "/temporary/"
+        return wPath
+    }
+    
 }
 
 extension NSBundle {
@@ -108,4 +131,13 @@ extension NSBundle {
         return self.infoDictionary?["CFBundleVersion"] as? String
     }
     
+}
+
+extension NSFileManager{
+    
+    func addSkipBackupAttributeToItemAtURL(iDirectoryPath:String) throws {
+        
+        let wUrl = NSURL(fileURLWithPath: iDirectoryPath)
+        try wUrl.setResourceValue(true, forKey: NSURLIsExcludedFromBackupKey)
+    }
 }
