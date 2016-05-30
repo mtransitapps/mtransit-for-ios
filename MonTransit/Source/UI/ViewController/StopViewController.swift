@@ -50,6 +50,7 @@ class StopViewController: UIViewController, UIScrollViewDelegate, UITableViewDat
     private let regionRadius: CLLocationDistance = 1000
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         scrollView.delegate = self
         timeListView.delegate = self
@@ -77,9 +78,9 @@ class StopViewController: UIViewController, UIScrollViewDelegate, UITableViewDat
             self.stationNameLabel.text = mSelectedStation.getStationTitle()
             self.stationCodeLabel.text = mSelectedStation.getStationCode()
             self.headerLabel.text = mSelectedBus.getBusNumber() + " - " + mSelectedStation.getStationTitle()
-            
+        
             mStopsList = wStopProvider.filterListByTime(mCompleteStopsList, iPreviousTime: mPreviousTimeToDisplay, iAfterTime: mNextTimeToDisplay)
-            
+        
             //set nearest time
             if mPreviousTimeToDisplay < mStopsList.count {
                 
@@ -89,7 +90,6 @@ class StopViewController: UIViewController, UIScrollViewDelegate, UITableViewDat
                 
                 mStopsList[mNextTimeToDisplay].isNearest(true)
             }
-            self.addIAdBanner()
         }
         
         if nil != mSelectedBus {
@@ -98,6 +98,7 @@ class StopViewController: UIViewController, UIScrollViewDelegate, UITableViewDat
             self.busImage.backgroundColor = ColorUtils.hexStringToUIColor(mSelectedBus.getBusColor())
             self.busImage.addBusNumber(mSelectedBus.getBusNumber(), iDirection: mSelectedTrip.getTripDirection())
         }
+ 
         heightConstraint.constant = CGFloat(44 * (mStopsList.count + 1))
         
         mFavoriteHelper = FavoritesDataProviderHelper()
@@ -132,25 +133,24 @@ class StopViewController: UIViewController, UIScrollViewDelegate, UITableViewDat
         
         if !mMapLoaded {
             
-            dispatch_async(dispatch_get_main_queue())
-            {
-                self.headerMapView = MKMapView(frame: self.header.bounds)
-                self.headerMapView?.contentMode = UIViewContentMode.ScaleAspectFill
-                self.headerMapView.showsUserLocation = true
-                self.header.insertSubview(self.headerMapView, belowSubview: self.headerLabel)
-                
-                self.centerMapOnLocation(CLLocation(latitude: self.mSelectedStation.getStationLatitude(), longitude: self.mSelectedStation.getStationLongitude()))
-                
-                self.blurView = UIView(frame: self.headerMapView.bounds)
-                self.visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
-                self.visualEffectView.frame = self.headerMapView.bounds
-                self.blurView.insertSubview(self.visualEffectView, atIndex: 1)
-                self.blurView.alpha = 0.0
-                
-                self.header.insertSubview(self.blurView, belowSubview: self.headerLabel)
-                self.header.clipsToBounds = true
-            }
+            self.headerMapView = MKMapView(frame: self.header.bounds)
+            self.headerMapView?.contentMode = UIViewContentMode.ScaleAspectFill
+            self.headerMapView.showsUserLocation = true
+            self.header.insertSubview(self.headerMapView, belowSubview: self.headerLabel)
+            
+            self.centerMapOnLocation(CLLocation(latitude: self.mSelectedStation.getStationLatitude(), longitude: self.mSelectedStation.getStationLongitude()))
+            
+            self.blurView = UIView(frame: self.headerMapView.bounds)
+            self.visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
+            self.visualEffectView.frame = self.headerMapView.bounds
+            self.blurView.insertSubview(self.visualEffectView, atIndex: 1)
+            self.blurView.alpha = 0.0
+            
+            self.header.insertSubview(self.blurView, belowSubview: self.headerLabel)
+            self.header.clipsToBounds = true
+            self.addIAdBanner()
         }
+ 
     }
     
     override func viewWillAppear(animated: Bool) {

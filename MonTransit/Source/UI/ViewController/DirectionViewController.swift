@@ -14,6 +14,9 @@ class DirectionViewController: UIViewController, PagingMenuControllerDelegate {
     var mTripList:[TripObject]!
     var mSelectedBus:BusObject!
     
+    var firstViewController:StationsViewController!  = nil
+    var secondViewController:StationsViewController! = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,8 +25,8 @@ class DirectionViewController: UIViewController, PagingMenuControllerDelegate {
         
         self.navigationController?.navigationBar.topItem?.title = ""
 
-        let firstViewController = self.storyboard?.instantiateViewControllerWithIdentifier("StationsViewController") as! StationsViewController
-        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("StationsViewController") as! StationsViewController
+        firstViewController = self.storyboard?.instantiateViewControllerWithIdentifier("StationsViewController") as! StationsViewController
+        secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("StationsViewController") as! StationsViewController
         
         if mTripList != nil && mTripList.count >= 2
         {
@@ -41,7 +44,7 @@ class DirectionViewController: UIViewController, PagingMenuControllerDelegate {
         }
         
         // Color and options
-        let viewControllers = [firstViewController, secondViewController]
+        let viewControllers:[UIViewController] = [firstViewController, secondViewController]
         
         let options = PagingMenuOptions()
         options.menuDisplayMode = .SegmentedControl//(widthMode: .Flexible, centerItem: false, scrollingMode: .PagingEnabled)
@@ -81,6 +84,9 @@ class DirectionViewController: UIViewController, PagingMenuControllerDelegate {
             pagingMenuController.view.frame = currentRect
             
             self.adRecieved = true;
+            
+            firstViewController.replaceListViewPosition()
+            secondViewController.replaceListViewPosition()
         }
     }
 

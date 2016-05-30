@@ -8,7 +8,6 @@
 import UIKit
 import CoreLocation
 import MapKit
-import GoogleMobileAds
 
 class StationsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -39,9 +38,8 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
             self.tableView!.setContentOffset(CGPointZero, animated: true)
         }
     }
-
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+    
+    func replaceListViewPosition() {
         
         var wPosition = UITableViewScrollPosition.Top
         let wLocation = AppDelegate().sharedInstance().getUserLocation()
