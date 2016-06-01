@@ -77,18 +77,23 @@ class Agency:NSObject, AgencyProtocol {
         
         mZipDataFile = iFile
     }
+    
     func getZipDataFile () -> String {
         
         return mZipDataFile
     }
     
+    func closeZipData(){
+     
+        mArchive = nil
+    }
     
-     func getMainDatabasePath() -> String{
+    func getMainDatabasePath() -> String{
 
         return mMainDatabaseFolder + "/" + mMainDatabase
     }
     
-     func getFavoritesDatabasePath() -> String {
+    func getFavoritesDatabasePath() -> String {
     
         return mFavoritesDatabaseFolder + "/" + mFavoritesDatabase
     }

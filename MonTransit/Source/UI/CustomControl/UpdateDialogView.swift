@@ -42,9 +42,6 @@ class UpdateDialogView: UIView {
     /* Overrides */
     init() {
         super.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height))
-        
-        setupView()
-        processReach()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -75,6 +72,10 @@ class UpdateDialogView: UIView {
     
     /* Create the dialog view, and animate opening the dialog */
     func show(title: String, doneButtonTitle: String = "Update", cancelButtonTitle: String = "Cancel", callback: DatePickerCallback) {
+        
+        setupView()
+        processReach()
+
         self.titleLabel.text = title
         self.cancelButton.setTitle(cancelButtonTitle, forState: .Normal)
         self.updateButton.setTitle(doneButtonTitle, forState: .Normal)
@@ -101,6 +102,7 @@ class UpdateDialogView: UIView {
     
     /* Dialog close animation then cleaning and removing the view from the parent */
     private func close() {
+        
         NSNotificationCenter.defaultCenter().removeObserver(self)
         
         let currentTransform = self.dialogView.layer.transform
@@ -341,11 +343,26 @@ extension UpdateDialogView : MZDownloadManagerDelegate{
         
         print("Download Finished")
         downloadManager.presentNotificationForDownload("Ok", notifBody: "Download did completed")
-        
-        let docDirectoryPath : NSString = (MZUtility.baseFilePath as NSString).stringByAppendingPathComponent(downloadModel.fileName)
-        NSNotificationCenter.defaultCenter().postNotificationName(MZUtility.DownloadCompletedNotif as String, object: docDirectoryPath)
-        
         progressWhell.stopAnimating()
+        
+        let sourceDirectoryPath = (MZUtility.baseFilePath as NSString).stringByAppendingPathComponent(downloadModel.fileName)
+        let destDirectoryPath   = File.getDocumentTempFolderPath().stringByAppendingString(downloadModel.fileName)
+        
+        // close current database connection
+        SQLProvider.sqlProvider.closeMainDatabse()
+        
+        // close zip file
+        AgencyManager.getAgencyById(0).closeZipData()
+   
+        // move new zip data file
+        File.move(sourceDirectoryPath, destinationPath: destDirectoryPath, delete: true)
+        
+        // set zipdata
+        AgencyManager.getAgencyById(0).setZipData()
+        
+        // open database
+        SQLProvider.sqlProvider.openDatabase()
+        
     }
     
     func downloadRequestDidFailedWithError(error: NSError, downloadModel: MZDownloadModel, index: Int) {

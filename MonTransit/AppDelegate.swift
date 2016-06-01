@@ -96,6 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         //Check if databse created
         // debug delete
         //File.deleteContentsOfFolder(File.getDocumentFilePath())
+        
         parseXmlAgency()
         
         if !File.documentFileExist(NSBundle.mainBundle().releaseVersionNumber!)
@@ -104,6 +105,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
         else
         {
+            // set zip path
+            for wAgency in AgencyManager.getAgencies(){
+                
+                wAgency.setZipData()
+            }
+            
             SQLProvider.sqlProvider.openDatabase()
             displayNearestView()
         }

@@ -42,6 +42,7 @@
 		21CE85441C5ABB48004BE8EB /* NearestStationViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CE85431C5ABB48004BE8EB /* NearestStationViewCell.swift */; };
 		21E2DD851C6940BF00522702 /* AgencyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2DD841C6940BF00522702 /* AgencyProtocol.swift */; };
 		21E2DD941C694F4800522702 /* AgencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2DD931C694F4800522702 /* AgencyManager.swift */; };
+		21E41EF81CFE6E8E00525B91 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E41EF71CFE6E8E00525B91 /* DownloadManager.swift */; };
 		21EC37A11C4D3DB700343377 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21EC379F1C4D3DB700343377 /* LaunchScreen.xib */; };
 		21EC37B71C4D77F200343377 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21EC37B61C4D77F200343377 /* CoreLocation.framework */; };
 		21EC37B91C4D825300343377 /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EC37B81C4D825300343377 /* CLLocationCoordinate2D.swift */; };
@@ -151,6 +152,7 @@
 		21CE85431C5ABB48004BE8EB /* NearestStationViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearestStationViewCell.swift; sourceTree = "<group>"; };
 		21E2DD841C6940BF00522702 /* AgencyProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AgencyProtocol.swift; path = Source/Agencies/AgencyProtocol.swift; sourceTree = "<group>"; };
 		21E2DD931C694F4800522702 /* AgencyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AgencyManager.swift; path = Source/Agencies/AgencyManager.swift; sourceTree = "<group>"; };
+		21E41EF71CFE6E8E00525B91 /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		21EC37A01C4D3DB700343377 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		21EC37B61C4D77F200343377 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		21EC37B81C4D825300343377 /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
@@ -386,6 +388,7 @@
 				21C5DC081C6BAF2600EA514E /* iAdBannerView.swift */,
 				21ACB8861CF66E7D004EFCB0 /* XmlParser.swift */,
 				21066D421CF908E400BB26EA /* ConnectivityReach.swift */,
+				21E41EF71CFE6E8E00525B91 /* DownloadManager.swift */,
 			);
 			name = Utils;
 			path = Source/Utils;
@@ -693,6 +696,7 @@
 				21C51CC51C644E870060817A /* SwiftSWRevealViewController.swift in Sources */,
 				21F3758C1C4D351400BB76F9 /* BusDataProviderHelper.swift in Sources */,
 				21F376271C4D359500BB76F9 /* DirectionViewController.swift in Sources */,
+				21E41EF81CFE6E8E00525B91 /* DownloadManager.swift in Sources */,
 				21F376341C4D360600BB76F9 /* StopTableViewCell.swift in Sources */,
 				21F375C81C4D351400BB76F9 /* BusObject.swift in Sources */,
 				219385471C56DF52006D1F33 /* DatePickerDialog.swift in Sources */,

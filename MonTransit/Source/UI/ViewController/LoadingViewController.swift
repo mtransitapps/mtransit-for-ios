@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MZDownloadManager
 
 class LoadingViewController: UIViewController, DatabaseyDelegate {
     
@@ -25,6 +26,9 @@ class LoadingViewController: UIViewController, DatabaseyDelegate {
         for wAgency in AgencyManager.getAgencies() {
             
             File.copy(File.getBundleFilePath(wAgency.getZipDataFile(), iOfType: "zip")!, destinationPath: File.getDocumentTempFolderPath() + "\(wAgency.getZipDataFile()).zip")
+            
+            // set zip path
+            wAgency.setZipData()
         }
         
         //Load SQLLite Dabase
@@ -40,13 +44,7 @@ class LoadingViewController: UIViewController, DatabaseyDelegate {
     
     func createTemporaryFolder() {
         File.createDirectory("temporary")
-        do {
-            try NSFileManager.defaultManager().addSkipBackupAttributeToItemAtURL(File.getDocumentTempFolderPath())
-            
-        } catch {
-            // Handle error here
-            print("Error: \(error)")
-        }
+        MZUtility.addSkipBackupAttributeToItemAtURL(File.getDocumentTempFolderPath())
     }
     
     func databaseCreated() {

@@ -36,13 +36,6 @@ final class SQLProvider {
     
     func openDatabase()
     {
-        
-        // set zip path
-        for wAgency in AgencyManager.getAgencies(){
-            
-            wAgency.setZipData()
-        }
-        
         if !File.documentFileExist(NSBundle.mainBundle().releaseVersionNumber!)
         {
             print("start: " + String(NSDate().getGtfsFormatTime()))
@@ -92,7 +85,7 @@ final class SQLProvider {
         
         if  wDbExist
         {
-            mMainDatabase.append(try! Connection("\(wPath)/" + iAgency.getMainDatabasePath()))
+            mMainDatabase.insert(try! Connection("\(wPath)/" + iAgency.getMainDatabasePath()), atIndex: iAgency.getAgencyId())
         }
     }
     
@@ -246,9 +239,9 @@ final class SQLProvider {
         return mGtfsDatabase[iId]
     }
     
-    func closeMainDatabse(iId:Int) {
+    func closeMainDatabse() {
         
-        mMainDatabase[iId] = nil
+        mMainDatabase.removeAll()
     }
     
     func closefavoriteDatabse(iId:Int) {

@@ -8,6 +8,8 @@ import UIKit
 class MenuController: UITableViewController {
     @IBOutlet weak var resizeView: UIView!
 
+    private let updateDialogView:UpdateDialogView = UpdateDialogView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -48,7 +50,7 @@ class MenuController: UITableViewController {
         let selectedCell:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
         if selectedCell.reuseIdentifier == "UpdateId" {
             
-            UpdateDialogView().show(NSLocalizedString("Update", comment: "Title"),
+            updateDialogView.show(NSLocalizedString("Update", comment: "Title"),
                                     doneButtonTitle: NSLocalizedString("UpdateKey", comment: "Update"),
                                     cancelButtonTitle: NSLocalizedString("CancelKey", comment: "Cancel")) {
                                         (date) -> Void in
@@ -73,11 +75,10 @@ extension UIViewController: SWRevealViewControllerDelegate
                 lock?.alpha = 0.0
                 }, completion: {(finished: Bool) in
                     lock?.removeFromSuperview()
-                    //self.tableView.scrollEnabled = true
             })
         } else if revealController.frontViewPosition == FrontViewPosition.Left {
             let lock = UIView(frame: self.view.bounds)
-            lock.autoresizingMask = UIViewAutoresizing.FlexibleWidth//UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+            lock.autoresizingMask = UIViewAutoresizing.FlexibleWidth
             lock.tag = tagId
             lock.alpha = 0
             lock.backgroundColor = UIColor.blackColor()
@@ -87,7 +88,6 @@ extension UIViewController: SWRevealViewControllerDelegate
                 lock.alpha = 0.5
                 }
             )
-            //self.tableView.scrollEnabled = false
         }
     }
     

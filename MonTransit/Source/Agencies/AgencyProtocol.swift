@@ -63,6 +63,7 @@ protocol AgencyProtocol {
 
      func setZipData ()
      func getZipData () -> ZipLoader
+     func closeZipData()
      func setZipDataFile(iFile:String) 
      func getZipDataFile () -> String
      func getAgencyId() -> Int
