@@ -109,7 +109,7 @@ class NearestViewController: UIViewController, UITableViewDelegate, UITableViewD
             mPositionSetted = true
         }
         
-        mRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(30, target:self, selector: #selector(NearestViewController.updateTimer), userInfo: nil, repeats: true)
+        mRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(45, target:self, selector: #selector(NearestViewController.updateTimer), userInfo: nil, repeats: true)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -296,10 +296,13 @@ class NearestViewController: UIViewController, UITableViewDelegate, UITableViewD
 /*
     TIMER
 */
-    
     func updateTimer() {
         
-        self.setUpComputations()
+        if revealViewController() != nil &&
+        revealViewController().frontViewPosition == FrontViewPosition.Left {
+            
+            self.setUpComputations()
+        }
     }
 /*
     PULL TO REFRESH

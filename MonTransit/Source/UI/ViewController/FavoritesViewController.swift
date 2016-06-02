@@ -79,7 +79,7 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
         self.navigationController!.navigationBar.barTintColor = ColorUtils.hexStringToUIColor("212121")
         
         retrieveFavorites()
-        mRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(60, target:self, selector: #selector(FavoritesViewController.updateTimer), userInfo: nil, repeats: true)
+        mRefreshTimer = NSTimer.scheduledTimerWithTimeInterval(45, target:self, selector: #selector(FavoritesViewController.updateTimer), userInfo: nil, repeats: true)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -292,7 +292,11 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func updateTimer() {
         
-        self.retrieveFavorites()
+        if revealViewController() != nil &&
+            revealViewController().frontViewPosition == FrontViewPosition.Left {
+            
+            self.retrieveFavorites()
+        }
     }
     
     /*
