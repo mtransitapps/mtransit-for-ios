@@ -28,7 +28,7 @@ class StationDataProviderHelper {
     {
     }
     
-    func createStops(iAgency:AgencyProtocol, iSqlCOnnection:Connection) -> Bool
+    func createStops(iAgency:Agency, iSqlCOnnection:Connection) -> Bool
     {
         do {
             let wStopRawType = iAgency.getMainFilePath()
@@ -59,7 +59,7 @@ class StationDataProviderHelper {
         }
     }
     
-    func createTripStops(iAgency:AgencyProtocol, iSqlCOnnection:Connection) -> Bool
+    func createTripStops(iAgency:Agency, iSqlCOnnection:Connection) -> Bool
     {
         do {
             let wTripStopRawType = iAgency.getMainFilePath()

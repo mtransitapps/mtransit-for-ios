@@ -32,8 +32,7 @@ class UpdateDialogView: UIView {
         [unowned self] in
         let sessionIdentifer: String = "com.iosDevelopment.MZDownloadManager.BackgroundSession"
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        var completion = appDelegate.backgroundSessionCompletionHandler
+        var completion = AppDelegate().sharedInstance().backgroundSessionCompletionHandler
         
         let downloadmanager = MZDownloadManager(session: sessionIdentifer, delegate: self, completion: completion)
         return downloadmanager

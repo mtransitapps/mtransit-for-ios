@@ -78,7 +78,7 @@ final class SQLProvider {
         }
     }
     
-    private func openMainDatabase(iAgency:AgencyProtocol)
+    private func openMainDatabase(iAgency:Agency)
     {
         let wPath = File.getDocumentFilePath()
         let wDbExist = File.documentFileExist(iAgency.getMainDatabasePath())
@@ -89,7 +89,7 @@ final class SQLProvider {
         }
     }
     
-    private func openFavoriteDatabase(iAgency:AgencyProtocol)
+    private func openFavoriteDatabase(iAgency:Agency)
     {
         let wPath = File.getDocumentFilePath()
         let wDbExist = File.documentFileExist(iAgency.getFavoritesDatabasePath())
@@ -100,7 +100,7 @@ final class SQLProvider {
         }
     }
     
-    private func openGtfsDatabase(iAgency:AgencyProtocol)
+    private func openGtfsDatabase(iAgency:Agency)
     {
         let wPath = File.getDocumentFilePath()
         let wDbExist = File.documentFileExist(iAgency.getGtfsDatabasePath())
@@ -111,7 +111,7 @@ final class SQLProvider {
         }
     }
     
-    private func createMainDatabase(iAgency:AgencyProtocol) -> Bool
+    private func createMainDatabase(iAgency:Agency) -> Bool
     {
        let wConnection = try! Connection(File.getDocumentFilePath() + iAgency.getMainDatabasePath())
         
@@ -164,7 +164,7 @@ final class SQLProvider {
         return populateDatabase(iAgency, iSqlConnection: wConnection)
     }
     
-    private func createGtfssDatabase(iAgency:AgencyProtocol) -> Bool
+    private func createGtfssDatabase(iAgency:Agency) -> Bool
     {
         let wConnection = try! Connection(File.getDocumentFilePath() + iAgency.getGtfsDatabasePath())
         
@@ -183,7 +183,7 @@ final class SQLProvider {
         return true
     }
     
-    private func createFavoritesDatabase(iAgency:AgencyProtocol) -> Bool
+    private func createFavoritesDatabase(iAgency:Agency) -> Bool
     {
         let wConnection = try! Connection(File.getDocumentFilePath() + iAgency.getFavoritesDatabasePath())
         
@@ -202,7 +202,7 @@ final class SQLProvider {
         return true
     }
     
-    private func populateDatabase(iAgency:AgencyProtocol, iSqlConnection:Connection) -> Bool
+    private func populateDatabase(iAgency:Agency, iSqlConnection:Connection) -> Bool
     {
         var wSuccess:Bool = false
 

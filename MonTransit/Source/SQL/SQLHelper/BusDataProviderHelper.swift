@@ -24,7 +24,7 @@ class BusDataProviderHelper {
     {
     }
     
-    func createRoutes(iAgency:AgencyProtocol, iSqlCOnnection:Connection) -> Bool
+    func createRoutes(iAgency:Agency, iSqlCOnnection:Connection) -> Bool
     {
         do {
             let wStopRawType = iAgency.getMainFilePath()

@@ -21,7 +21,7 @@ class ServiceDateDataProvider {
     {
     }
     
-    func createServiceDate(iAgency:AgencyProtocol, iSqlCOnnection:Connection) -> Bool
+    func createServiceDate(iAgency:Agency, iSqlCOnnection:Connection) -> Bool
     {
         do {
             let wServiceRawType = iAgency.getMainFilePath()

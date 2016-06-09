@@ -26,7 +26,7 @@ class TripDataProviderHelper{
     {
     }
     
-    func createTrips(iAgency:AgencyProtocol, iSqlCOnnection:Connection) -> Bool
+    func createTrips(iAgency:Agency, iSqlCOnnection:Connection) -> Bool
     {
         do {
             let wStopRawType = iAgency.getMainFilePath()

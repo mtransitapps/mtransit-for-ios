@@ -8,57 +8,58 @@
 
 import UIKit
 
-class Agency:NSObject, AgencyProtocol {
+class Agency:NSObject {
     
     var mDisplayIAds = true
     
     // Agency ID
     var mAgencyId:Int = 1
+    var mAgencyUniqueId: String = ""
     
     // Agency Name
-    var mAgencyName:String = "Bus"
+    var mAgencyName:String = ""
     
     // Agency Type
     var mAgencyType:SQLProvider.DatabaseType = .eBus
     
     // Zip Data
-    var mZipDataFile = "StmData"
+    var mZipDataFile = ""
     var mArchive:ZipLoader!
     
     // Database Folder
-    var mMainDatabaseFolder = "mainDatabase"
-    var mFavoritesDatabaseFolder = "favoritesDatabase"
-    var mGtfsDatabaseFolder = "gtfsDatabase"
+    var mMainDatabaseFolder = ""
+    var mFavoritesDatabaseFolder = ""
+    var mGtfsDatabaseFolder = ""
     
     // Agency Database
-    var mMainDatabase = "ca_montreal_stm_bus.db"
-    var mFavoritesDatabase =  "ca_montreal_stm_bus_favorites.db"
-    var mGtfsDatabase = "ca_montreal_stm_bus_gtfs.db"
+    var mMainDatabase = ""
+    var mFavoritesDatabase =  ""
+    var mGtfsDatabase = ""
     // DB file
-    var mGtfsRoute = "gtfs_rts_routes"
-    var mGtfsStop  = "gtfs_rts_stops"
-    var mGtfsTrip = "gtfs_rts_trips"
-    var mGtfsTripStop = "gtfs_rts_trip_stops"
-    var mGtfsServiceDate = "gtfs_schedule_service_dates"
+    var mGtfsRoute = ""
+    var mGtfsStop  = ""
+    var mGtfsTrip = ""
+    var mGtfsTripStop = ""
+    var mGtfsServiceDate = ""
     
     
     // Agency Default Color
-    var mAgencyDefaultColor = "009EE0"
+    var mAgencyDefaultColor = ""
     
     // Agency file format
-    var mStopScheduleRaw = "gtfs_schedule_stop_"
-    var mStopScheduleFolder = "ca_montreal_bus_gtfs"
+    var mStopScheduleRaw = ""
+    var mStopScheduleFolder = ""
     
-    var mJsonAlertEn = "https://www.stm.info/en/ajax/etats-du-service"
-    var mJsonAlertFr = "https://www.stm.info/fr/ajax/etats-du-service"
+    var mJsonAlertEn = ""
+    var mJsonAlertFr = ""
     
     // Location
     var mLatitude = 45.5088400
     var mLongitude = -73.5878100
     
     // Alert
-    var mAlertMessageFr = "Service normal du métro"
-    var mAlertMessageEn = "Normal métro service"
+    var mAlertMessageFr = ""
+    var mAlertMessageEn = ""
     
     func getAgencyId() -> Int{
         return mAgencyId

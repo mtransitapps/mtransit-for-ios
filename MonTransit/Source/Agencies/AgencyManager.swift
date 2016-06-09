@@ -11,10 +11,10 @@ import UIKit
 class AgencyManager {
 
     private static var mListOfAgencies:[Agency] = []
-    private static var mCurrentAgency:AgencyProtocol!
+    private static var mCurrentAgency:Agency!
     
-    static func getAgency() -> AgencyProtocol { return mCurrentAgency}
-    static func getAgencyById(iAgencyId:Int) -> AgencyProtocol {
+    static func getAgency() -> Agency { return mCurrentAgency}
+    static func getAgencyById(iAgencyId:Int) -> Agency {
         
         for wAgency in mListOfAgencies
         {

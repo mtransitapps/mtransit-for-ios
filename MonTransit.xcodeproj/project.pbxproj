@@ -40,7 +40,6 @@
 		21C5DC5F1C6E84CC00EA514E /* CustomMapViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C5DC5D1C6E84CC00EA514E /* CustomMapViewCell.swift */; };
 		21C5DC601C6E84CC00EA514E /* CustomMapViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21C5DC5E1C6E84CC00EA514E /* CustomMapViewCell.xib */; };
 		21CE85441C5ABB48004BE8EB /* NearestStationViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CE85431C5ABB48004BE8EB /* NearestStationViewCell.swift */; };
-		21E2DD851C6940BF00522702 /* AgencyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2DD841C6940BF00522702 /* AgencyProtocol.swift */; };
 		21E2DD941C694F4800522702 /* AgencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2DD931C694F4800522702 /* AgencyManager.swift */; };
 		21E41EF81CFE6E8E00525B91 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E41EF71CFE6E8E00525B91 /* DownloadManager.swift */; };
 		21EC37A11C4D3DB700343377 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21EC379F1C4D3DB700343377 /* LaunchScreen.xib */; };
@@ -150,7 +149,6 @@
 		21C5DC5D1C6E84CC00EA514E /* CustomMapViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMapViewCell.swift; sourceTree = "<group>"; };
 		21C5DC5E1C6E84CC00EA514E /* CustomMapViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomMapViewCell.xib; sourceTree = "<group>"; };
 		21CE85431C5ABB48004BE8EB /* NearestStationViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearestStationViewCell.swift; sourceTree = "<group>"; };
-		21E2DD841C6940BF00522702 /* AgencyProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AgencyProtocol.swift; path = Source/Agencies/AgencyProtocol.swift; sourceTree = "<group>"; };
 		21E2DD931C694F4800522702 /* AgencyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AgencyManager.swift; path = Source/Agencies/AgencyManager.swift; sourceTree = "<group>"; };
 		21E41EF71CFE6E8E00525B91 /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		21EC37A01C4D3DB700343377 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -335,7 +333,6 @@
 			isa = PBXGroup;
 			children = (
 				21ECA1B11C512A5F00343377 /* Agency.swift */,
-				21E2DD841C6940BF00522702 /* AgencyProtocol.swift */,
 				21E2DD931C694F4800522702 /* AgencyManager.swift */,
 			);
 			name = Agencies;
@@ -669,7 +666,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21E2DD851C6940BF00522702 /* AgencyProtocol.swift in Sources */,
 				212CB5A01C4D319B00C062C4 /* AppDelegate.swift in Sources */,
 				21E2DD941C694F4800522702 /* AgencyManager.swift in Sources */,
 				21C51CC71C64F5A80060817A /* LoadingViewController.swift in Sources */,

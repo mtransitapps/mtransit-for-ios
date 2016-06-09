@@ -1,5 +1,5 @@
 <agencies>
-    <agency name="STM Bus" displayName="Bus">
+    <agency uniqueId="STMBus" displayName="Bus">
         <adMob>false</adMob>
         <zipFile>StmAgency</zipFile>
         <folder>
@@ -36,7 +36,7 @@
         <agencyDefaultColor>009EE0</agencyDefaultColor>
         <type>0</type>
     </agency>
-    <agency name="STM Subway" displayName="Metro">
+    <agency uniqueId="STMSubway" displayName="Metro">
         <adMob>true</adMob>
         <zipFile>StmAgency</zipFile>
         <folder>
@@ -73,7 +73,7 @@
         <agencyDefaultColor>009EE0</agencyDefaultColor>
         <type>1</type>
     </agency>
-    <agency name="STM Train" displayName="Train">
+    <agency uniqueId="STMTrain" displayName="Train">
         <adMob>true</adMob>
         <zipFile>AmtAgency</zipFile>
         <folder>
