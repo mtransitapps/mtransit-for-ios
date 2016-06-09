@@ -4,7 +4,7 @@
 
 This is an IOS port of the orginal MonTransit Android app : https://github.com/mtransitapps/mtransit-for-android
 
-<img width="25%" height="25%" src="https://www.dropbox.com/s/eig4ezwlirmny3u/1.png?dl=0"/>
+<img width="25%" height="25%" src="https://github.com/mtransitapps/mtransit-for-ios/blob/master/MonTransit/Resources/screenshots/1.png"/>
 
 ## Usage
 
