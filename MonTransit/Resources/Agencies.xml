@@ -1,6 +1,6 @@
 <agencies>
     <agency uniqueId="STMBus" displayName="Bus">
-        <adMob>false</adMob>
+        <adMob>true</adMob>
         <zipFile>StmAgency</zipFile>
         <folder>
             <mainDatabaseFolder>mainDatabase</mainDatabaseFolder>

@@ -25,7 +25,7 @@ class LoadingViewController: UIViewController, DatabaseyDelegate {
         //copy zip files
         for wAgency in AgencyManager.getAgencies() {
             
-            File.copy(File.getBundleFilePath(wAgency.getZipDataFile(), iOfType: "zip")!, destinationPath: File.getDocumentTempFolderPath() + "\(wAgency.getZipDataFile()).zip")
+            File.copy(File.getBundleFilePath(wAgency.getZipDataFile(), iOfType: "zip")!, destinationPath: File.getDocumentTempFolderPath() + "\(wAgency.getZipDataFile()).zip", delete: true)
             
             // set zip path
             wAgency.setZipData()

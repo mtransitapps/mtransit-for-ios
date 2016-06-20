@@ -91,4 +91,42 @@ extension UIViewController: SWRevealViewControllerDelegate
         }
     }
     
+    func checkDateLimits(providerId:Int) -> Bool{
+        
+        let wServiceDateProvider = ServiceDateDataProvider()
+        
+        // get the user's calendar
+        let userCalendar = NSCalendar.currentCalendar()
+        
+        // choose which date and time components are needed
+        let requestedComponents: NSCalendarUnit = [
+            NSCalendarUnit.Year,
+            NSCalendarUnit.Month,
+            NSCalendarUnit.Day        ]
+        
+        // get the components
+        let dateTimeComponents = userCalendar.components(requestedComponents, fromDate: NSDate())
+        
+        let wYear = dateTimeComponents.year
+        let wMonth = dateTimeComponents.month
+        let wDay = dateTimeComponents.day
+        
+        //Verify if the current date is in DB
+        let wDate = wServiceDateProvider.getDatesLimit(providerId)
+        let wTimeString =  String(format: "%04d", wYear) + String(format: "%02d", wMonth) + String(format: "%02d", wDay)
+        let wTimeInt = Int(wTimeString)!
+        
+        if wDate.max.getNSDate().getDateToInt() < wTimeInt{
+            return true
+        }
+        else{
+            return false
+        }
+    }
+    func displayDataOutdatedPopup(dataKeyString:String){
+        let alert = UIAlertController(title: "Alert", message: NSLocalizedString(dataKeyString, comment: ""), preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OkKey", comment: ""), style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
 }

@@ -27,3 +27,8 @@
 "HoursKey" = "hours";
 "HourKey" = "hour";
 "MinutesKey" = "min";
+
+/* Class UIViewController */
+"BusDataOutDated" = "Bus times are outdated, please update your application in the AppStore";
+"SubwayDataOutDated" = "Metro times are outdated, please update your application in the AppStore";
+"TrainDataOutDated" = "Train times are outdated, please update your application in the AppStore";

@@ -61,11 +61,23 @@ class BusTableViewController: UIViewController, UITableViewDelegate, UITableView
         
         self.navigationController?.navigationBar.topItem?.title = AgencyManager.getAgency().mAgencyName
         self.navigationController!.navigationBar.barTintColor = ColorUtils.hexStringToUIColor(AgencyManager.getAgency().getAgencyDefaultColor())
+        
+        //check data outdated
+        if self.checkDateLimits(AgencyManager.getAgency().getAgencyId()){
+            
+            switch AgencyManager.getAgency().mAgencyType {
+                case SQLProvider.DatabaseType.eBus:
+                    self.displayDataOutdatedPopup("BusDataOutDated")
+                case SQLProvider.DatabaseType.eSubway:
+                    self.displayDataOutdatedPopup("SubwayDataOutDated")
+                case SQLProvider.DatabaseType.eTrain:
+                    self.displayDataOutdatedPopup("TrainDataOutDated")
+            }
+        }
     }
     override func viewWillAppear(animated: Bool) {
         
         self.navigationController?.navigationBar.topItem?.title = AgencyManager.getAgency().mAgencyName
-        //self.navigationController!.navigationBar.barTintColor = ColorUtils.hexStringToUIColor(AgencyManager.getAgency().getAgencyDefaultColor())
     }
 
     

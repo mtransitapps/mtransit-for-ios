@@ -31,8 +31,11 @@ class File {
         }
     }
     
-    class func copy(sourcePath: String, destinationPath: String) -> Bool{
+    class func copy(sourcePath: String, destinationPath: String, delete: Bool = false) -> Bool{
         
+        if delete && NSFileManager().fileExistsAtPath(destinationPath) {
+            File.delete(destinationPath)
+        }
         if NSFileManager().fileExistsAtPath(sourcePath) {
             do {
                 try NSFileManager().copyItemAtPath(sourcePath, toPath: destinationPath)
