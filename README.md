@@ -24,7 +24,7 @@ To run the project, clone the repo, and run `pod install` from the MonTransit di
 
 ## Author
 
-Thibault Bavard, thibault.bavard@gmail.com
+Thibault Bavard
 
 ## License
 
